@@ -1,2 +1,1 @@
-# HowardHINC1
-1found this code in some old files of mine, looked like someone could use them :) 
+this is mainly for self hosting LIF YO game server you can copy and past this into your .my file as it is. 
