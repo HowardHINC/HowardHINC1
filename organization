@@ -1,0 +1,43 @@
+@echo off
+setlocal enabledelayedexpansion
+
+echo Starting file organization...
+
+REM Loop through all files in the current directory
+for %%f in (*) do (
+    REM Skip the batch file itself and directories
+    if /i not "%%f"=="%~nx0" (
+        if not exist "%%f\*" (
+            REM Get the file extension
+            set "filename=%%f"
+            set "extension=%%~xf"
+            
+            REM Remove the dot from extension for folder name
+            if defined extension (
+                set "extension=!extension:~1!"
+                
+                REM Create folder if it doesn't exist
+                if not exist "!extension!" (
+                    mkdir "!extension!"
+                    echo Created folder: !extension!
+                )
+                
+                REM Move the file to the appropriate folder
+                move "%%f" "!extension!\"
+                echo Moved %%f to !extension!\ folder
+            ) else (
+                REM Handle files without extensions
+                if not exist "no_extension" (
+                    mkdir "no_extension"
+                    echo Created folder: no_extension
+                )
+                move "%%f" "no_extension\"
+                echo Moved %%f to no_extension\ folder
+            )
+        )
+    )
+)
+
+echo.
+echo File organization complete!
+pause
